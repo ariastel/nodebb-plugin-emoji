@@ -1,18 +1,21 @@
 {
-  "name": "nodebb-plugin-emoji",
-  "version": "3.5.2",
+  "name": "@ariastel/nodebb-plugin-emoji",
+  "version": "1.0.0",
   "description": "Adds extensible emoji functionality to NodeBB",
   "main": "build/lib",
   "author": "Peter Jaszkowiak <p.jaszkow@gmail.com> (https://github.com/pitaj)",
   "license": "MIT",
-  "homepage": "https://github.com/NodeBB/nodebb-plugin-emoji",
+  "homepage": "https://github.com/ariastel/nodebb-plugin-emoji",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NodeBB/nodebb-plugin-emoji.git"
+    "url": "https://github.com/ariastel/nodebb-plugin-emoji.git"
   },
   "nbbpm": {
     "compatibility": "~1.16.0 || ~1.17.0"
   },
+  "contributors": [
+    "Ariastel Team <ariastel@iamantosik.me> (https://github.com/ariastel)"
+  ],
   "keywords": [
     "nodebb",
     "plugin",
@@ -61,7 +64,9 @@
     "dev": "npm run compile && cd acp && rollup -c -w",
     "build": "npm run compile && cd acp && rollup -c",
     "pretest": "npm run lint && npm run build",
-    "test": "node build/lib/tests.js",
-    "prepare": "rm -r build; mkdir -p build/emoji && touch build/emoji/avoid_npm_ignore && npm run test"
+    "test": "node build/lib/tests.js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }
