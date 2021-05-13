@@ -28,6 +28,9 @@ export const dialogActions = {
   },
   close(dialog: JQuery): JQuery {
     $html.removeClass('emoji-insert');
+    if (dialog.hasClass('emoji-dialog--input-focused')) {
+      dialog.removeClass('emoji-dialog--input-focused');
+    }
     return dialog.removeClass('open');
   },
 };
@@ -111,6 +114,9 @@ export function init(callback: Callback<JQuery>): void {
         dialog.find('.tab-pane.emoji-dialog-search-results').html(results);
         dialog.find('.emoji-dialog-search-results').removeClass('hidden');
         dialog.find('.nav-tabs .emoji-dialog-search-results a').tab('show');
+      });
+      dialog.find('.emoji-dialog-search').on('focus', (e) => {
+        dialog.addClass('emoji-dialog--input-focused');
       });
 
       const tabContent = dialog.find('.emoji-tabs .tab-content');
@@ -196,7 +202,9 @@ export function toggle(
     dialog.off('click').on('click', '.emoji-link', (e) => {
       e.preventDefault();
       const name = (e.currentTarget as HTMLAnchorElement).name;
-
+      if (dialog.hasClass('emoji-dialog--input-focused')) {
+        dialog.removeClass('emoji-dialog--input-focused');
+      }
       onClick(e, name, dialog);
     });
 
@@ -259,5 +267,8 @@ export function toggleForInsert(
     insertIntoTextarea(textarea, text);
     updateTextareaSelection(textarea, start, end);
     $(textarea).trigger('input');
+    if (utils.isMobile()) {
+      $(textarea).trigger('blur');
+    }
   });
 }
